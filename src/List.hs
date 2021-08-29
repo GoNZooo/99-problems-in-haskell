@@ -64,8 +64,14 @@ take n xs = foldr f (k Nil) xs n
 takeWhile :: (a -> Bool) -> List a -> List a
 takeWhile p = foldr (\a as -> bool (a :. as) Nil (p a)) Nil
 
-infiniteOf :: a -> List a
-infiniteOf a = a :. infiniteOf a
+infinite :: a -> List a
+infinite a = a :. infinite a
 
 range :: (Integral a, Eq a) => a -> a -> List a
 range from to = from :. bool Nil (range (from + 1) to) (from == to)
+
+iterate :: (a -> a) -> a -> List a
+iterate f a = a :. iterate f (f a)
+
+iota :: Int -> List Int
+iota n = iterate (+ 1) 1 & take n
