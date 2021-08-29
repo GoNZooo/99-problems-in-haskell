@@ -3,6 +3,7 @@ module Core
     Bool (..),
     Eq (..),
     Ord (..),
+    Tuple (..),
     s,
     k,
     i,
@@ -56,6 +57,12 @@ instance Eq Ordering where
   EqualTo == EqualTo = True
   GreaterThan == GreaterThan = True
   _ == _ = False
+
+data Tuple a b = Tuple a b
+  deriving (Show)
+
+instance (Eq a, Eq b) => Eq (Tuple a b) where
+  Tuple a b == Tuple a' b' = a == a' && b == b'
 
 class Ord a where
   compare :: a -> a -> Ordering
