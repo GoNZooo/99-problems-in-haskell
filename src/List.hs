@@ -33,6 +33,9 @@ instance Semigroup (List a) where
 instance Monoid (List a) where
   identity = Nil
 
+filter :: (a -> Bool) -> List a -> List a
+filter p = foldr (\a as -> bool (a :. as) as (p a)) Nil
+
 reverse :: List a -> List a
 reverse = foldl (flip (:.)) Nil
 
