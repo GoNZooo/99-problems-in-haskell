@@ -3,6 +3,8 @@ module List where
 import Core
 import Foldable
 import Functor
+import Monoid
+import Semigroup
 
 infixr 5 :.
 
@@ -24,8 +26,18 @@ instance (Eq a) => Eq (List a) where
   (a :. as) == (b :. bs) = a == b && as == bs
   _ == _ = False
 
+instance Semigroup (List a) where
+  Nil <> as = as
+  (a :. as) <> bs = a :. as <> bs
+
+instance Monoid (List a) where
+  identity = Nil
+
 reverse :: List a -> List a
 reverse = foldl (flip (:.)) Nil
+
+flatten :: List (List a) -> List a
+flatten = concatenate
 
 fromHaskellList :: [a] -> List a
 fromHaskellList = foldr (:.) Nil

@@ -78,6 +78,9 @@ isPalindrome xs = xs == reverse xs
 
 -- * (my-flatten '(a (b (c d) e)))
 
+flattenList :: List (List a) -> List a
+flattenList = flatten
+
 -- (A B C D E)
 -- Hint: Use the predefined functions list and append.
 
