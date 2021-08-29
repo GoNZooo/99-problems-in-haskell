@@ -10,6 +10,9 @@ module Core
     (||),
     ($),
     bool,
+    (.),
+    (>>>),
+    (&),
   )
 where
 
@@ -64,3 +67,18 @@ infixr 0 $
 
 ($) :: (a -> b) -> a -> b
 f $ a = f a
+
+infixl 0 .
+
+(.) :: (b -> c) -> (a -> b) -> a -> c
+(.) g f a = g $ f a
+
+infixr 1 >>>
+
+(>>>) :: (a -> b) -> (b -> c) -> a -> c
+f >>> g = g . f
+
+infixl 1 &
+
+(&) :: a -> (a -> b) -> b
+x & f = f x
