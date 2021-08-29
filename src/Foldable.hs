@@ -12,6 +12,9 @@ instance Foldable [] where
 sum :: (Foldable f, Num a) => f a -> a
 sum = foldr (+) 0
 
+product :: (Foldable f, Num a) => f a -> a
+product = foldr (*) 0
+
 length :: (Foldable f) => f a -> Int
 length = foldr (k (+ 1)) 0
 
