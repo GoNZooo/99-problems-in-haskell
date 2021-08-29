@@ -9,6 +9,7 @@ module Core
     flip,
     (&&),
     (||),
+    not,
     ($),
     bool,
     (.),
@@ -19,6 +20,7 @@ module Core
     (>),
     (>=),
     even,
+    odd,
   )
 where
 
@@ -88,6 +90,10 @@ infixr 2 ||
 False || False = False
 _ || _ = True
 
+not :: Bool -> Bool
+not True = False
+not False = True
+
 bool :: a -> a -> Bool -> a
 bool true _false True = true
 bool _true false False = false
@@ -123,3 +129,9 @@ infixl 1 &
 
 (&) :: a -> (a -> b) -> b
 x & f = f x
+
+even :: Int -> Bool
+even x = x `Prelude.rem` 2 == 0
+
+odd :: Int -> Bool
+odd = even >>> not
