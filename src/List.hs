@@ -70,6 +70,12 @@ drop n xs = foldr f (k Nil) xs n
     f a fas 0 = a :. fas 0
     f _a fas n' = fas (n' - 1)
 
+dropWhile :: (a -> Bool) -> List a -> List a
+dropWhile p xs = foldr f (k Nil) xs True
+  where
+    f a fas True = bool (fas True) (a :. fas False) (p a)
+    f a fas False = a :. fas False
+
 infinite :: a -> List a
 infinite a = a :. infinite a
 
