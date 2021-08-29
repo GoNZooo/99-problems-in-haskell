@@ -1,7 +1,7 @@
 -- | To make this module more interesting I will be implementing almost everything internally, which
 -- means we can't depend on anything except what we have in this and other local modules.
 -- Exceptions to this:
--- `String`, `Show`, `Eq`, `Ord`, `Integral`, `Num` and basic operators
+-- `Show`, `Num` and basic operators
 module Library where
 
 import Core
