@@ -54,3 +54,12 @@ any p = foldr (\a r -> p a || r) False
 replicate :: Int -> a -> List a
 replicate 0 _x = Nil
 replicate n x = x :. replicate (n - 1) x
+
+take :: Int -> List a -> List a
+take n xs = foldr f (k Nil) xs n
+  where
+    f _a _fas 0 = Nil
+    f a fas n' = a :. fas (n' - 1)
+
+takeWhile :: (a -> Bool) -> List a -> List a
+takeWhile p = foldr (\a as -> bool (a :. as) Nil (p a)) Nil
