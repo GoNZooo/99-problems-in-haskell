@@ -44,3 +44,9 @@ fromHaskellList = foldr (:.) Nil
 
 toHaskellList :: List a -> [a]
 toHaskellList = foldr (:) []
+
+all :: (a -> Bool) -> List a -> Bool
+all p = foldr (\a r -> p a && r) True
+
+any :: (a -> Bool) -> List a -> Bool
+any p = foldr (\a r -> p a || r) False
