@@ -50,3 +50,7 @@ all p = foldr (\a r -> p a && r) True
 
 any :: (a -> Bool) -> List a -> Bool
 any p = foldr (\a r -> p a || r) False
+
+replicate :: Int -> a -> List a
+replicate 0 _x = Nil
+replicate n x = x :. replicate (n - 1) x
