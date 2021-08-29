@@ -3,6 +3,8 @@ module Maybe where
 import Core
 import Foldable
 import Functor
+import Monoid
+import Semigroup
 
 data Maybe a
   = Nothing
@@ -21,3 +23,11 @@ instance Foldable Maybe where
 instance Functor Maybe where
   map _f Nothing = Nothing
   map f (Just a) = Just $ f a
+
+instance (Semigroup a) => Semigroup (Maybe a) where
+  ma <> Nothing = ma
+  Nothing <> mb = mb
+  Just a <> Just b = Just $ a <> b
+
+instance (Semigroup a) => Monoid (Maybe a) where
+  identity = Nothing
