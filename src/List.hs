@@ -55,7 +55,7 @@ replicate :: Int -> a -> List a
 replicate 0 _x = Nil
 replicate n x = x :. replicate (n - 1) x
 
-take :: Int -> List a -> List a
+take :: (Integral a) => a -> List a -> List a
 take n xs = foldr f (k Nil) xs n
   where
     f _a _fas 0 = Nil
@@ -79,8 +79,8 @@ dropWhile p xs = foldr f (k Nil) xs True
 infinite :: a -> List a
 infinite a = a :. infinite a
 
-range :: (Integral a, Eq a) => a -> a -> List a
-range from to = from :. bool Nil (range (from + 1) to) (from == to)
+range :: (Integral a) => a -> a -> List a
+range from to = iterate (+ 1) from & take (to - from)
 
 iterate :: (a -> a) -> a -> List a
 iterate f a = a :. iterate f (f a)
