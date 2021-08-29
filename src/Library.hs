@@ -92,6 +92,13 @@ flattenList = flatten
 
 -- (A B C A D E)
 
+compress :: (Eq a) => List a -> List a
+compress Nil = Nil
+compress (x :. xs) = foldr f (:. Nil) xs x
+  where
+    f :: (Eq a) => a -> (a -> List a) -> a -> List a
+    f a fas x' = bool (fas a) (x' :. fas a) (a == x')
+
 -- P09 (**) Pack consecutive duplicates of list elements into sublists.
 -- If a list contains repeated elements they should be placed in separate sublists.
 -- Example:
