@@ -64,6 +64,12 @@ take n xs = foldr f (k Nil) xs n
 takeWhile :: (a -> Bool) -> List a -> List a
 takeWhile p = foldr (\a as -> bool (a :. as) Nil (p a)) Nil
 
+drop :: Int -> List a -> List a
+drop n xs = foldr f (k Nil) xs n
+  where
+    f a fas 0 = a :. fas 0
+    f _a fas n' = fas (n' - 1)
+
 infinite :: a -> List a
 infinite a = a :. infinite a
 
