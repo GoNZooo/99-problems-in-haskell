@@ -2,6 +2,7 @@ module Core
   ( module Prelude,
     Bool (..),
     Eq (..),
+    Ord (..),
     s,
     k,
     i,
@@ -13,6 +14,11 @@ module Core
     (.),
     (>>>),
     (&),
+    (<),
+    (<=),
+    (>),
+    (>=),
+    even,
   )
 where
 
@@ -24,6 +30,8 @@ data Bool
   | False
   deriving (Show)
 
+infix 4 ==
+
 class Eq a where
   (==) :: a -> a -> Bool
 
@@ -34,6 +42,39 @@ instance Eq Bool where
 
 instance Eq Int where
   a == b = if a Prelude.== b then True else False
+
+data Ordering
+  = LessThan
+  | EqualTo
+  | GreaterThan
+  deriving (Show)
+
+instance Eq Ordering where
+  LessThan == LessThan = True
+  EqualTo == EqualTo = True
+  GreaterThan == GreaterThan = True
+  _ == _ = False
+
+class Ord a where
+  compare :: a -> a -> Ordering
+
+instance Ord Int where
+  compare a b
+    | a Prelude.< b = LessThan
+    | a Prelude.== b = EqualTo
+    | Prelude.otherwise = GreaterThan
+
+(<) :: Ord a => a -> a -> Bool
+a < b = compare a b == LessThan
+
+(<=) :: Ord a => a -> a -> Bool
+a <= b = compare a b == LessThan || compare a b == EqualTo
+
+(>) :: Ord a => a -> a -> Bool
+a > b = compare a b == GreaterThan
+
+(>=) :: Ord a => a -> a -> Bool
+a >= b = compare a b == GreaterThan || compare a b == EqualTo
 
 infixr 3 &&
 
