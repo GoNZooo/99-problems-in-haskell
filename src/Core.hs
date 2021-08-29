@@ -2,6 +2,7 @@ module Core
   ( module Prelude,
     Bool (..),
     Eq (..),
+    s,
     k,
     i,
     flip,
@@ -41,6 +42,9 @@ infixr 2 ||
 (||) :: Bool -> Bool -> Bool
 False || False = False
 _ || _ = True
+
+s :: (z -> a -> b) -> (z -> a) -> z -> b
+s x y z = x z $ y z
 
 k :: a -> b -> a
 k a _ = a
