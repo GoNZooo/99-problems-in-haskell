@@ -9,6 +9,7 @@ module Core
     (&&),
     (||),
     ($),
+    bool,
   )
 where
 
@@ -42,6 +43,10 @@ infixr 2 ||
 (||) :: Bool -> Bool -> Bool
 False || False = False
 _ || _ = True
+
+bool :: a -> a -> Bool -> a
+bool true _false True = true
+bool _true false False = false
 
 s :: (z -> a -> b) -> (z -> a) -> z -> b
 s x y z = x z $ y z
