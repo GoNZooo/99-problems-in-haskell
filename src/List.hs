@@ -41,6 +41,9 @@ zip Nil _bs = Nil
 zip _as Nil = Nil
 zip (a :. as) (b :. bs) = Tuple a b :. zip as bs
 
+unzip :: List (Tuple a b) -> Tuple (List a) (List b)
+unzip = foldr (\(Tuple a b) (Tuple as bs) -> Tuple (a :. as) (b :. bs)) (Tuple Nil Nil)
+
 reverse :: List a -> List a
 reverse = foldl (flip (:.)) Nil
 
