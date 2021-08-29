@@ -13,7 +13,7 @@ module Core
   )
 where
 
-import Prelude (Int, Num, Show, (*), (+), (-))
+import Prelude (Int, Integral, Num, Show, (*), (+), (-))
 import qualified Prelude
 
 data Bool
