@@ -36,6 +36,11 @@ instance Monoid (List a) where
 filter :: (a -> Bool) -> List a -> List a
 filter p = foldr (\a as -> bool (a :. as) as (p a)) Nil
 
+zip :: List a -> List b -> List (Tuple a b)
+zip Nil _bs = Nil
+zip _as Nil = Nil
+zip (a :. as) (b :. bs) = Tuple a b :. zip as bs
+
 reverse :: List a -> List a
 reverse = foldl (flip (:.)) Nil
 
