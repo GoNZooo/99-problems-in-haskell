@@ -22,6 +22,8 @@ module Core
     (>=),
     even,
     odd,
+    first,
+    second,
   )
 where
 
@@ -60,6 +62,12 @@ instance Eq Ordering where
 
 data Tuple a b = Tuple a b
   deriving (Show)
+
+first :: Tuple a b -> a
+first (Tuple a _b) = a
+
+second :: Tuple a b -> b
+second (Tuple _a b) = b
 
 instance (Eq a, Eq b) => Eq (Tuple a b) where
   Tuple a b == Tuple a' b' = a == a' && b == b'
