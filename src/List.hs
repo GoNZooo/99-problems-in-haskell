@@ -98,3 +98,14 @@ iterate f a = a :. iterate f (f a)
 
 iota :: Int -> List Int
 iota n = iterate (+ 1) 1 & take n
+
+span :: (a -> Bool) -> List a -> Tuple (List a) (List a)
+span _p Nil = Tuple Nil Nil
+span p list@(a :. as) = bool f (Tuple Nil list) $ p a
+  where
+    f =
+      let Tuple matching notMatching = span p as
+       in Tuple (a :. matching) notMatching
+
+break :: (a -> Bool) -> List a -> Tuple (List a) (List a)
+break p = span (p >>> not)
