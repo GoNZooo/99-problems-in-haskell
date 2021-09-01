@@ -1,8 +1,10 @@
 module List where
 
+import ConsUncons
 import Core
 import Foldable
 import Functor
+import Maybe
 import Monoid
 import Semigroup
 
@@ -33,13 +35,15 @@ instance Semigroup (List a) where
 instance Monoid (List a) where
   identity = Nil
 
+instance Cons List where
+  cons = (:.)
+
+instance Uncons List where
+  uncons Nil = Nothing
+  uncons (a :. as) = Just $ Tuple a as
+
 filter :: (a -> Bool) -> List a -> List a
 filter p = foldr (\a as -> bool (a :. as) as (p a)) Nil
-
-zip :: List a -> List b -> List (Tuple a b)
-zip Nil _bs = Nil
-zip _as Nil = Nil
-zip (a :. as) (b :. bs) = Tuple a b :. zip as bs
 
 unzip :: List (Tuple a b) -> Tuple (List a) (List b)
 unzip = foldr (\(Tuple a b) (Tuple as bs) -> Tuple (a :. as) (b :. bs)) (Tuple Nil Nil)
